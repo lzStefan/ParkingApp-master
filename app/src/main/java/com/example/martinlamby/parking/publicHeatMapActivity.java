@@ -3,6 +3,8 @@ package com.example.martinlamby.parking;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -32,6 +34,9 @@ public class publicHeatMapActivity extends FragmentActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_private_heat_map);
 
+        parkedCarLocations = new ArrayList<>();
+
+
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -39,7 +44,7 @@ public class publicHeatMapActivity extends FragmentActivity
 
     }
 
-    public ArrayList<ParkedCarLocation> getAllParkedCarPositions(){
+    public ArrayList<ParkedCarLocation> getAllParkedCarPositions() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkedCarPosition");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -56,26 +61,26 @@ public class publicHeatMapActivity extends FragmentActivity
         return parkedCarLocations;
     }
 
-    public double parseDoubleString(String number){
+    public double parseDoubleString(String number) {
         int length = number.length();
         String x = number.substring(1, length - 1);
         return Double.valueOf(x);
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         getAllParkedCarPositions();
-
 
 
         ArrayList<LatLng> list = new ArrayList<LatLng>() {
 
 
         };
-        for(int i = 0;i<parkedCarLocations.size();i++){
-            list.add(new LatLng(parkedCarLocations.get(i).getLatitude(),parkedCarLocations.get(i).getLongitude()));
+        for (int i = 0; i < parkedCarLocations.size(); i++) {
+            list.add(new LatLng(parkedCarLocations.get(i).getLatitude(), parkedCarLocations.get(i).getLongitude()));
 
         }
-        if(list.size()==0){
+        if (list.size() == 0) {
             list.add(new LatLng(GeoLocationService.getLastLocationLatitude(),
                     GeoLocationService.getLastLocationLongitude()));
         }
@@ -86,7 +91,13 @@ public class publicHeatMapActivity extends FragmentActivity
                 .build();
 
         TileOverlay mOverlay = googleMap.addTileOverlay(new TileOverlayOptions().tileProvider(mProvider));
+        CameraUpdate center =
+                CameraUpdateFactory.newLatLng(new LatLng(GeoLocationService.getLastLocationLatitude(),
+                        GeoLocationService.getLastLocationLongitude()));
+        CameraUpdate zoom = CameraUpdateFactory.zoomTo(12);
 
+        googleMap.moveCamera(center);
+        googleMap.animateCamera(zoom);
 
     }
 

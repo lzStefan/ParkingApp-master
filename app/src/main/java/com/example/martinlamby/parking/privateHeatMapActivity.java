@@ -41,12 +41,11 @@ public class privateHeatMapActivity extends FragmentActivity
         mapFragment.getMapAsync(this);
 
 
-
     }
 
-    public ArrayList<ParkedCarLocation> getUsersParkedCarPositions(){
+    public ArrayList<ParkedCarLocation> getUsersParkedCarPositions() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkedCarPosition");
-        query.whereEqualTo("username",ParseUser.getCurrentUser().getUsername().toString());
+        query.whereEqualTo("username", ParseUser.getCurrentUser().getUsername().toString());
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
@@ -67,7 +66,7 @@ public class privateHeatMapActivity extends FragmentActivity
     }
 
 
-    public double parseDoubleString(String number){
+    public double parseDoubleString(String number) {
         int length = number.length();
         String x = number.substring(1, length - 1);
         return Double.valueOf(x);
@@ -84,27 +83,26 @@ public class privateHeatMapActivity extends FragmentActivity
 
         };
 
-        for(int i = 0;i<parkedCarLocations.size();i++){
-            list.add(new LatLng(parkedCarLocations.get(i).getLatitude(),parkedCarLocations.get(i).getLongitude()));
+        for (int i = 0; i < parkedCarLocations.size(); i++) {
+            list.add(new LatLng(parkedCarLocations.get(i).getLatitude(), parkedCarLocations.get(i).getLongitude()));
 
         }
-        if(list.size()==0){
+        if (list.size() == 0) {
             list.add(new LatLng(GeoLocationService.getLastLocationLatitude(),
                     GeoLocationService.getLastLocationLongitude()));
         }
 
-//
 
         HeatmapTileProvider mProvider = new HeatmapTileProvider.Builder()
                 .data(list)
                 .build();
-//
+
         TileOverlay mOverlay = googleMap.addTileOverlay(new TileOverlayOptions().tileProvider(mProvider));
 
-        CameraUpdate center=
+        CameraUpdate center =
                 CameraUpdateFactory.newLatLng(new LatLng(GeoLocationService.getLastLocationLatitude(),
                         GeoLocationService.getLastLocationLongitude()));
-        CameraUpdate zoom=CameraUpdateFactory.zoomTo(12);
+        CameraUpdate zoom = CameraUpdateFactory.zoomTo(12);
 
         googleMap.moveCamera(center);
         googleMap.animateCamera(zoom);
