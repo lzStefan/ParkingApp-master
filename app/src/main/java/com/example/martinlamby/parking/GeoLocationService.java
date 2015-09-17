@@ -66,9 +66,10 @@ public class GeoLocationService extends Service implements GoogleApiClient.Conne
               lastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
               return lastLocation.getLatitude();
           } catch (Exception e){
-            return 48;
+
           }
 
+        return 48.111111;
     }
     public static double getLastLocationLongitude(){
 
@@ -78,10 +79,11 @@ public class GeoLocationService extends Service implements GoogleApiClient.Conne
         lastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         return lastLocation.getLongitude();
         } catch (Exception e){
-            return 10;
+
         }
 
 
+        return 10;
     }
 
 

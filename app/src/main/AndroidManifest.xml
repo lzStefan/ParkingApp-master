@@ -51,12 +51,7 @@
         </activity>
 
         <activity
-            android:name=".privateHeatMapActivity"
-            android:label="@string/title_activity_heat_map"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name=".publicHeatMapActivity"
+            android:name=".displayHeatMapActivity"
             android:label="@string/title_activity_heat_map"
             android:screenOrientation="portrait" >
         </activity>
