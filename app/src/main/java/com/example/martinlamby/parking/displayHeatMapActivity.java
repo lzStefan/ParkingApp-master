@@ -41,9 +41,9 @@ public class displayHeatMapActivity extends FragmentActivity
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        Intent intent = getIntent();
+        Intent callDataIntent = getIntent();
 
-        parkedCarLocations = intent.getExtras().getParcelableArrayList("test");
+        parkedCarLocations = callDataIntent.getExtras().getParcelableArrayList("test");
 
 
     }
