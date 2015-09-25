@@ -15,15 +15,8 @@ import com.google.android.gms.maps.model.TileOverlay;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.maps.android.heatmaps.Gradient;
 import com.google.maps.android.heatmaps.HeatmapTileProvider;
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
-import com.google.android.gms.maps.GoogleMap;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -42,7 +35,7 @@ public class displayHeatMapActivity extends FragmentActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_private_heat_map);
+        setContentView(R.layout.activity_display_heat_map);
 
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
@@ -69,15 +62,15 @@ public class displayHeatMapActivity extends FragmentActivity
 
 
         int[] colors = {
-                Color.rgb(102, 225, 0), // green
-                Color.rgb(255, 0, 0)    // red
+                Color.rgb(102, 225, 0),
+                Color.rgb(255, 0, 0)
         };
 
-        float[] startPoints = {
+        float[] startingPoints = {
                 0.2f, 1f
         };
 
-        Gradient gradient = new Gradient(colors, startPoints);
+        Gradient gradient = new Gradient(colors, startingPoints);
 
 
         HeatmapTileProvider mProvider = new HeatmapTileProvider.Builder()

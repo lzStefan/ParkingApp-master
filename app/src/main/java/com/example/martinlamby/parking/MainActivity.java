@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     public void startNavigation() {
         boolean isInstalled = isGoogleMapsInstalled();
         if (isInstalled == true) {
-            Uri gMapsIntentUri = Uri.parse("google.navigation:q=" + GeoLocationService.getLastLocationLatitude() + "," + GeoLocationService.getLastLocationLongitude());
+            Uri gMapsIntentUri = Uri.parse("google.navigation:q=" + GeoLocationService.getLastLocationLatitude() + "," + GeoLocationService.getLastLocationLongitude()+"&mode=w");
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gMapsIntentUri);
             mapIntent.setPackage("com.google.android.apps.maps");
             startActivity(mapIntent);

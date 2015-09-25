@@ -69,7 +69,7 @@ public class GeoLocationService extends Service implements GoogleApiClient.Conne
 
           }
 
-        return 48.111111;
+        return 48;
     }
     public static double getLastLocationLongitude(){
 

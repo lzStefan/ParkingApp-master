@@ -18,18 +18,16 @@ import java.util.List;
 public class HeatMapActivity extends AppCompatActivity {
 
 
-    public ArrayList<ParkedCarLocation> privateParkedCarLocations= new ArrayList<>();
+    public ArrayList<ParkedCarLocation> privateParkedCarLocations = new ArrayList<>();
     public ArrayList<ParkedCarLocation> publicParkedCarLocations = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_heat_map);
-     getPrivateParkedCarPositions();
-     getPublicParkedcarPositions();
+        getPrivateParkedCarPositions();
+        getPublicParkedcarPositions();
 
-        System.out.println( "PRIVATE:"+privateParkedCarLocations.size());
-        System.out.println( "PUBLIC:"+publicParkedCarLocations.size());
 
         Button privateHeatmap = (Button) findViewById(R.id.privateHeatMapButton);
         Button publicHeatmap = (Button) findViewById(R.id.publicHeatMapButton);
@@ -39,11 +37,9 @@ public class HeatMapActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-
-
                 Intent heatmapIntent = (new Intent(getApplicationContext(), displayHeatMapActivity.class));
 
-                heatmapIntent.putExtra("test", publicParkedCarLocations);
+                heatmapIntent.putExtra("publicCL", publicParkedCarLocations);
 
                 startActivity(heatmapIntent);
             }
@@ -55,11 +51,9 @@ public class HeatMapActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-
-
                 Intent heatmapIntent = (new Intent(getApplicationContext(), displayHeatMapActivity.class));
 
-                heatmapIntent.putExtra("test", privateParkedCarLocations);
+                heatmapIntent.putExtra("privateCL", privateParkedCarLocations);
 
                 startActivity(heatmapIntent);
             }
@@ -90,10 +84,6 @@ public class HeatMapActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
     public ArrayList<ParkedCarLocation> getPrivateParkedCarPositions() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("ParkedCarPosition");
         query.whereEqualTo("username", ParseUser.getCurrentUser().getUsername().toString());
@@ -115,14 +105,12 @@ public class HeatMapActivity extends AppCompatActivity {
 
         return privateParkedCarLocations;
     }
+
     public double parseDoubleString(String number) {
         int length = number.length();
         String x = number.substring(1, length - 1);
         return Double.valueOf(x);
     }
-
-
-
 
 
 }
